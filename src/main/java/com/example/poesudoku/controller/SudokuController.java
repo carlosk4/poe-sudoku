@@ -1,11 +1,13 @@
 package com.example.poesudoku.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import com.example.poesudoku.view.ButtonHoverable;
 import com.example.poesudoku.view.ButtonHoverEffect;
-import javafx.scene.control.Button;
 import com.example.poesudoku.view.GridBuilder;
+import com.example.poesudoku.model.GameManagerInterface;
+import com.example.poesudoku.model.GameManager;
 
 public class SudokuController {
 
@@ -14,22 +16,26 @@ public class SudokuController {
     @FXML private Button btnHint;
     @FXML private Button btnRestart;
 
+    private final GameManagerInterface gameManager = new GameManager();
+    private final GridBuilder gridBuilder = new GridBuilder();
     private final ButtonHoverable buttonHoverEffect = new ButtonHoverEffect();
 
     @FXML
     public void initialize() {
-        gridBuilder.build(sudokuGrid);
+        startNewGame();
         buttonHoverEffect.applyButtonHoverEffect(btnNewGame);
         buttonHoverEffect.applyButtonHoverEffect(btnHint);
         buttonHoverEffect.applyButtonHoverEffect(btnRestart);
     }
 
-    private final GridBuilder gridBuilder = new GridBuilder();
+    private void startNewGame() {
+        gameManager.startNewGame();
+        gridBuilder.build(sudokuGrid, gameManager.getBoard(), gameManager.getFixedCells());
+    }
 
     @FXML
     protected void onNewGame() {
-        sudokuGrid.getChildren().clear();
-        gridBuilder.build(sudokuGrid);
+        startNewGame();
     }
 
     @FXML
@@ -39,8 +45,7 @@ public class SudokuController {
 
     @FXML
     protected void onRestart() {
-        sudokuGrid.getChildren().clear();
-        gridBuilder.build(sudokuGrid);
+        startNewGame();
     }
 
 }
