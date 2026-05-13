@@ -4,11 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import com.example.poesudoku.view.Hoverable;
+import com.example.poesudoku.view.CellHoverEffect;
 
 public class SudokuController {
 
     @FXML
     private GridPane sudokuGrid;
+
+    private final Hoverable hoverEffect = new CellHoverEffect();
 
     @FXML
     public void initialize() {
@@ -35,6 +39,7 @@ public class SudokuController {
                     wrapper.getStyleClass().add("border-bottom-block");
                 }
 
+                hoverEffect.applyHoverEffect(wrapper);
                 sudokuGrid.add(wrapper, col, row);
             }
         }
