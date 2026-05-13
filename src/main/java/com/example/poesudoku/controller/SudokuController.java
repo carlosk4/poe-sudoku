@@ -6,6 +6,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import com.example.poesudoku.view.Hoverable;
 import com.example.poesudoku.view.CellHoverEffect;
+import com.example.poesudoku.view.ButtonHoverable;
+import com.example.poesudoku.view.ButtonHoverEffect;
+import javafx.scene.control.Button;
 
 public class SudokuController {
 
@@ -13,10 +16,14 @@ public class SudokuController {
     private GridPane sudokuGrid;
 
     private final Hoverable hoverEffect = new CellHoverEffect();
+    private final ButtonHoverable buttonHoverEffect = new ButtonHoverEffect();
 
     @FXML
     public void initialize() {
         buildGrid();
+        buttonHoverEffect.applyButtonHoverEffect(btnNewGame);
+        buttonHoverEffect.applyButtonHoverEffect(btnHint);
+        buttonHoverEffect.applyButtonHoverEffect(btnRestart);
     }
 
     private void buildGrid() {
@@ -61,4 +68,7 @@ public class SudokuController {
         sudokuGrid.getChildren().clear();
         buildGrid();
     }
+    @FXML private Button btnNewGame;
+    @FXML private Button btnHint;
+    @FXML private Button btnRestart;
 }

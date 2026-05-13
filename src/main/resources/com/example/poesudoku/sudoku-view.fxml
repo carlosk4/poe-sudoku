@@ -21,9 +21,9 @@
               hgap="0" vgap="0" alignment="CENTER"/>
 
     <HBox spacing="12" alignment="CENTER">
-        <Button text="Nueva partida" styleClass="btn-primary" onAction="#onNewGame"/>
-        <Button text="Ayuda"         styleClass="btn-secondary" onAction="#onHint"/>
-        <Button text="Reiniciar"     styleClass="btn-secondary" onAction="#onRestart"/>
+        <Button fx:id="btnNewGame" text="Nueva partida" styleClass="btn-primary" onAction="#onNewGame"/>
+        <Button fx:id="btnHint" text="Ayuda"         styleClass="btn-secondary" onAction="#onHint"/>
+        <Button fx:id="btnRestart" text="Reiniciar"     styleClass="btn-secondary" onAction="#onRestart"/>
     </HBox>
 
 </VBox>
