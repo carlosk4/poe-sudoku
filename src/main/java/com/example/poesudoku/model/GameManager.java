@@ -38,22 +38,29 @@ public class GameManager implements GameManagerInterface {
 
     @Override
     public void undo() {
-        if (!gameTree.canUndo()) {
-            return;
-        }
-
         int[][] previousBoard = gameTree.undo();
-
-        for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++) {
-                board.setCell(row, col, previousBoard[row][col]);
-            }
-        }
+        loadBoard(previousBoard);
     }
 
     @Override
     public boolean canUndo() {
         return gameTree.canUndo();
+    }
+
+    @Override
+    public void redo(int branchIndex) {
+        int[][] nextBoard = gameTree.redo(branchIndex);
+        loadBoard(nextBoard);
+    }
+
+    @Override
+    public boolean canRedo() {
+        return gameTree.canRedo();
+    }
+
+    @Override
+    public int getAvailableBranchesCount() {
+        return gameTree.getCurrentBranches().size();
     }
 
     @Override
@@ -64,5 +71,13 @@ public class GameManager implements GameManagerInterface {
     @Override
     public boolean[][] getFixedCells() {
         return fixedCells;
+    }
+
+    private void loadBoard(int[][] boardState) {
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                board.setCell(row, col, boardState[row][col]);
+            }
+        }
     }
 }
