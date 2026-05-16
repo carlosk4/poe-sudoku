@@ -1,11 +1,15 @@
 package com.example.poesudoku.model;
 
+import static com.example.poesudoku.model.SudokuConstants.EMPTY_CELL;
+import static com.example.poesudoku.model.SudokuConstants.SIZE;
+
 public class GameManager implements GameManagerInterface {
 
     private final SudokuBoardInterface board = new SudokuBoard();
     private final SudokuGeneratorInterface generator = new SudokuGenerator();
     private final GameTree gameTree = new GameTree();
-    private boolean[][] fixedCells;
+
+    private boolean[][] fixedCells = new boolean[SIZE][SIZE];
 
     @Override
     public void startNewGame() {
@@ -16,9 +20,10 @@ public class GameManager implements GameManagerInterface {
         int[][] generatedBoard = generator.getGeneratedBoard();
 
         board.reset();
-        for (int row = 0; row < 6; row++) {
-            for (int col = 0; col < 6; col++) {
-                int value = fixedCells[row][col] ? generatedBoard[row][col] : 0;
+
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                int value = fixedCells[row][col] ? generatedBoard[row][col] : EMPTY_CELL;
                 board.setCell(row, col, value);
             }
         }
@@ -33,12 +38,15 @@ public class GameManager implements GameManagerInterface {
 
     @Override
     public void undo() {
-        if (gameTree.canUndo()) {
-            int[][] previousBoard = gameTree.undo();
-            for (int row = 0; row < 6; row++) {
-                for (int col = 0; col < 6; col++) {
-                    board.setCell(row, col, previousBoard[row][col]);
-                }
+        if (!gameTree.canUndo()) {
+            return;
+        }
+
+        int[][] previousBoard = gameTree.undo();
+
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                board.setCell(row, col, previousBoard[row][col]);
             }
         }
     }
@@ -47,6 +55,7 @@ public class GameManager implements GameManagerInterface {
     public boolean canUndo() {
         return gameTree.canUndo();
     }
+
     @Override
     public int[][] getBoard() {
         return board.getBoard();
