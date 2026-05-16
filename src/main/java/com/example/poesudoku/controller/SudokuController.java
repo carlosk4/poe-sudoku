@@ -24,6 +24,7 @@ public class SudokuController {
     @FXML
     public void initialize() {
         startNewGame();
+
         buttonHoverEffect.applyButtonHoverEffect(btnUndo);
         buttonHoverEffect.applyButtonHoverEffect(btnNewGame);
         buttonHoverEffect.applyButtonHoverEffect(btnHint);
@@ -32,13 +33,18 @@ public class SudokuController {
 
     private void startNewGame() {
         gameManager.startNewGame();
+        refreshGrid();
+    }
+
+    private void refreshGrid() {
         gridBuilder.build(sudokuGrid, gameManager.getBoard(), gameManager.getFixedCells());
+        btnUndo.setDisable(!gameManager.canUndo());
     }
 
     @FXML
     protected void onUndo() {
         gameManager.undo();
-        gridBuilder.build(sudokuGrid, gameManager.getBoard(), gameManager.getFixedCells());
+        refreshGrid();
     }
 
     @FXML
@@ -55,5 +61,4 @@ public class SudokuController {
     protected void onRestart() {
         startNewGame();
     }
-
 }
