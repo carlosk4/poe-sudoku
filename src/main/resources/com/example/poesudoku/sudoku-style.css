@@ -7,11 +7,28 @@
     -fx-alignment: CENTER;
 }
 
+.title {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2B2118;
+}
+
+.subtitle {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 13px;
+    -fx-text-fill: #7A6A58;
+}
+
+.board-container {
+    -fx-padding: 8 8 8 8;
+}
+
 .sudoku-grid {
     -fx-background-color: #2B2118;
     -fx-border-color: #2B2118;
     -fx-border-width: 3;
-    -fx-padding: 7 3 7 3;
+    -fx-padding: 7 5 7 5;
     -fx-hgap: 1;
     -fx-vgap: 1;
     -fx-effect: dropshadow(gaussian, rgba(43,33,24,0.18), 18, 0, 0, 4);
@@ -61,19 +78,20 @@
     -fx-text-fill: #C0392B;
 }
 
-.border-right-block {
+/* Bordes gruesos entre secciones 2x3 del sudoku */
+.block-right {
     -fx-border-color: transparent #2B2118 transparent transparent;
-    -fx-border-width: 0 3 0 0;
+    -fx-border-width: 0 4px 0 0;
 }
 
-.border-bottom-block {
+.block-bottom {
     -fx-border-color: transparent transparent #2B2118 transparent;
-    -fx-border-width: 0 0 3 0;
+    -fx-border-width: 0 0 4px 0;
 }
 
-.border-right-bottom-block {
+.block-right.block-bottom {
     -fx-border-color: transparent #2B2118 #2B2118 transparent;
-    -fx-border-width: 0 3 3 0;
+    -fx-border-width: 0 4px 4px 0;
 }
 
 .btn-primary {

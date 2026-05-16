@@ -43,15 +43,28 @@ public class GridBuilder {
         StackPane wrapper = new StackPane(cell);
         wrapper.getStyleClass().add("cell-wrapper");
 
-        boolean blockRight = col == BLOCK_COLUMNS - 1;
-        boolean blockBottom = row == BLOCK_ROWS - 1 || row == (BLOCK_ROWS * 2) - 1;
+        if (row == 0) {
+            wrapper.getStyleClass().add("grid-top");
+        }
 
-        if (blockRight && blockBottom) {
-            wrapper.getStyleClass().add("border-right-bottom-block");
-        } else if (blockRight) {
-            wrapper.getStyleClass().add("border-right-block");
-        } else if (blockBottom) {
-            wrapper.getStyleClass().add("border-bottom-block");
+        if (col == 0) {
+            wrapper.getStyleClass().add("grid-left");
+        }
+
+        if (row == SIZE - 1) {
+            wrapper.getStyleClass().add("grid-bottom");
+        }
+
+        if (col == SIZE - 1) {
+            wrapper.getStyleClass().add("grid-right");
+        }
+
+        if (col == BLOCK_COLUMNS - 1) {
+            wrapper.getStyleClass().add("block-right");
+        }
+
+        if (row == BLOCK_ROWS - 1 || row == (BLOCK_ROWS * 2) - 1) {
+            wrapper.getStyleClass().add("block-bottom");
         }
 
         return wrapper;
