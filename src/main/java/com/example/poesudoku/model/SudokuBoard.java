@@ -1,8 +1,13 @@
 package com.example.poesudoku.model;
 
+import static com.example.poesudoku.model.SudokuConstants.BLOCK_COLUMNS;
+import static com.example.poesudoku.model.SudokuConstants.BLOCK_ROWS;
+import static com.example.poesudoku.model.SudokuConstants.EMPTY_CELL;
+import static com.example.poesudoku.model.SudokuConstants.SIZE;
+
 public class SudokuBoard implements SudokuBoardInterface {
 
-    private final int[][] board = new int[6][6];
+    private final int[][] board = new int[SIZE][SIZE];
 
     @Override
     public int getCell(int row, int col) {
@@ -16,17 +21,28 @@ public class SudokuBoard implements SudokuBoardInterface {
 
     @Override
     public boolean isValid(int row, int col, int value) {
-        for (int i = 0; i < 6; i++) {
-            if (i != col && board[row][i] == value) return false;
-            if (i != row && board[i][col] == value) return false;
+        if (value == EMPTY_CELL) {
+            return true;
         }
 
-        int blockRowStart = (row / 2) * 2;
-        int blockColStart = (col / 3) * 3;
+        for (int i = 0; i < SIZE; i++) {
+            if (i != col && board[row][i] == value) {
+                return false;
+            }
 
-        for (int r = blockRowStart; r < blockRowStart + 2; r++) {
-            for (int c = blockColStart; c < blockColStart + 3; c++) {
-                if (r != row && c != col && board[r][c] == value) return false;
+            if (i != row && board[i][col] == value) {
+                return false;
+            }
+        }
+
+        int blockRowStart = (row / BLOCK_ROWS) * BLOCK_ROWS;
+        int blockColStart = (col / BLOCK_COLUMNS) * BLOCK_COLUMNS;
+
+        for (int r = blockRowStart; r < blockRowStart + BLOCK_ROWS; r++) {
+            for (int c = blockColStart; c < blockColStart + BLOCK_COLUMNS; c++) {
+                if (!(r == row && c == col) && board[r][c] == value) {
+                    return false;
+                }
             }
         }
 
@@ -35,26 +51,42 @@ public class SudokuBoard implements SudokuBoardInterface {
 
     @Override
     public boolean isSolved() {
-        for (int row = 0; row < 6; row++) {
-            for (int col = 0; col < 6; col++) {
-                if (board[row][col] == 0) return false;
-                if (!isValid(row, col, board[row][col])) return false;
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (board[row][col] == EMPTY_CELL) {
+                    return false;
+                }
+
+                if (!isValid(row, col, board[row][col])) {
+                    return false;
+                }
             }
         }
+
         return true;
     }
 
     @Override
     public void reset() {
-        for (int row = 0; row < 6; row++) {
-            for (int col = 0; col < 6; col++) {
-                board[row][col] = 0;
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                board[row][col] = EMPTY_CELL;
             }
         }
     }
 
     @Override
     public int[][] getBoard() {
-        return board;
+        return copyBoard(board);
+    }
+
+    private int[][] copyBoard(int[][] original) {
+        int[][] copy = new int[SIZE][SIZE];
+
+        for (int row = 0; row < SIZE; row++) {
+            System.arraycopy(original[row], 0, copy[row], 0, SIZE);
+        }
+
+        return copy;
     }
 }
