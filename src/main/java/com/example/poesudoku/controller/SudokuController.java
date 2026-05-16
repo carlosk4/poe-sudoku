@@ -12,6 +12,7 @@ import com.example.poesudoku.model.GameManager;
 public class SudokuController {
 
     @FXML private GridPane sudokuGrid;
+    @FXML private Button btnUndo;
     @FXML private Button btnNewGame;
     @FXML private Button btnHint;
     @FXML private Button btnRestart;
@@ -23,6 +24,7 @@ public class SudokuController {
     @FXML
     public void initialize() {
         startNewGame();
+        buttonHoverEffect.applyButtonHoverEffect(btnUndo);
         buttonHoverEffect.applyButtonHoverEffect(btnNewGame);
         buttonHoverEffect.applyButtonHoverEffect(btnHint);
         buttonHoverEffect.applyButtonHoverEffect(btnRestart);
@@ -30,6 +32,12 @@ public class SudokuController {
 
     private void startNewGame() {
         gameManager.startNewGame();
+        gridBuilder.build(sudokuGrid, gameManager.getBoard(), gameManager.getFixedCells());
+    }
+
+    @FXML
+    protected void onUndo() {
+        gameManager.undo();
         gridBuilder.build(sudokuGrid, gameManager.getBoard(), gameManager.getFixedCells());
     }
 

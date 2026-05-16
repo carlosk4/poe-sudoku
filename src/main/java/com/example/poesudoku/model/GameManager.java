@@ -4,6 +4,7 @@ public class GameManager implements GameManagerInterface {
 
     private final SudokuBoardInterface board = new SudokuBoard();
     private final SudokuGeneratorInterface generator = new SudokuGenerator();
+    private final GameTree gameTree = new GameTree();
     private boolean[][] fixedCells;
 
     @Override
@@ -21,8 +22,31 @@ public class GameManager implements GameManagerInterface {
                 board.setCell(row, col, value);
             }
         }
+
+        gameTree.init(board.getBoard());
     }
 
+    @Override
+    public void saveState() {
+        gameTree.push(board.getBoard());
+    }
+
+    @Override
+    public void undo() {
+        if (gameTree.canUndo()) {
+            int[][] previousBoard = gameTree.undo();
+            for (int row = 0; row < 6; row++) {
+                for (int col = 0; col < 6; col++) {
+                    board.setCell(row, col, previousBoard[row][col]);
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean canUndo() {
+        return gameTree.canUndo();
+    }
     @Override
     public int[][] getBoard() {
         return board.getBoard();
