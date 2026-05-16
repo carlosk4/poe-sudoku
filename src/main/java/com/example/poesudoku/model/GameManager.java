@@ -64,6 +64,49 @@ public class GameManager implements GameManagerInterface {
     }
 
     @Override
+    public boolean setCellValue(int row, int col, int value) {
+        if (!isInsideBoard(row, col) || isFixedCell(row, col) || !isValidCellValue(value)) {
+            return false;
+        }
+
+        int previousValue = board.getCell(row, col);
+
+        if (previousValue == value) {
+            return true;
+        }
+
+        board.setCell(row, col, value);
+        saveState();
+
+        return true;
+    }
+
+    @Override
+    public boolean isFixedCell(int row, int col) {
+        return isInsideBoard(row, col) && fixedCells[row][col];
+    }
+
+    @Override
+    public boolean isCellValid(int row, int col) {
+        if (!isInsideBoard(row, col)) {
+            return false;
+        }
+
+        int value = board.getCell(row, col);
+
+        if (value == EMPTY_CELL) {
+            return true;
+        }
+
+        return board.isValid(row, col, value);
+    }
+
+    @Override
+    public boolean isSolved() {
+        return board.isSolved();
+    }
+
+    @Override
     public int[][] getBoard() {
         return board.getBoard();
     }
@@ -79,5 +122,13 @@ public class GameManager implements GameManagerInterface {
                 board.setCell(row, col, boardState[row][col]);
             }
         }
+    }
+
+    private boolean isInsideBoard(int row, int col) {
+        return row >= 0 && row < SIZE && col >= 0 && col < SIZE;
+    }
+
+    private boolean isValidCellValue(int value) {
+        return value >= EMPTY_CELL && value <= SIZE;
     }
 }

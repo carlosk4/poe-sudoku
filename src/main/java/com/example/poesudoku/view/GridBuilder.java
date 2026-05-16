@@ -6,18 +6,19 @@ import javafx.scene.layout.StackPane;
 
 import static com.example.poesudoku.model.SudokuConstants.BLOCK_COLUMNS;
 import static com.example.poesudoku.model.SudokuConstants.BLOCK_ROWS;
+import static com.example.poesudoku.model.SudokuConstants.EMPTY_CELL;
 import static com.example.poesudoku.model.SudokuConstants.SIZE;
 
 public class GridBuilder {
 
     private final Hoverable hoverEffect = new CellHoverEffect();
 
-    public void build(GridPane grid, int[][] generatedBoard, boolean[][] fixedCells) {
+    public void build(GridPane grid, int[][] generatedBoard, boolean[][] fixedCells, CellChangeHandler cellChangeHandler) {
         grid.getChildren().clear();
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
-                TextField cell = createCell(generatedBoard, fixedCells, row, col);
+                TextField cell = createCell(generatedBoard, fixedCells, row, col, cellChangeHandler);
                 StackPane wrapper = createWrapper(cell, row, col);
 
                 hoverEffect.applyHoverEffect(wrapper);
@@ -26,17 +27,41 @@ public class GridBuilder {
         }
     }
 
-    private TextField createCell(int[][] generatedBoard, boolean[][] fixedCells, int row, int col) {
+    private TextField createCell(
+            int[][] generatedBoard,
+            boolean[][] fixedCells,
+            int row,
+            int col,
+            CellChangeHandler cellChangeHandler
+    ) {
         TextField cell = new TextField();
         cell.getStyleClass().add("cell");
 
+        int value = generatedBoard[row][col];
+
+        if (value != EMPTY_CELL) {
+            cell.setText(String.valueOf(value));
+        }
+
         if (fixedCells[row][col]) {
-            cell.setText(String.valueOf(generatedBoard[row][col]));
             cell.setEditable(false);
             cell.getStyleClass().add("cell-fixed");
+        } else {
+            configureEditableCell(cell, row, col, cellChangeHandler);
         }
 
         return cell;
+    }
+
+    private void configureEditableCell(TextField cell, int row, int col, CellChangeHandler cellChangeHandler) {
+        cell.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[1-6]?")) {
+                cell.setText(oldValue);
+                return;
+            }
+
+            cellChangeHandler.onCellChanged(row, col, newValue);
+        });
     }
 
     private StackPane createWrapper(TextField cell, int row, int col) {

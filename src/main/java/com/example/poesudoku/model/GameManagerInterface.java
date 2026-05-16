@@ -10,6 +10,11 @@ public interface GameManagerInterface {
     boolean canRedo();
     int getAvailableBranchesCount();
 
+    boolean setCellValue(int row, int col, int value);
+    boolean isFixedCell(int row, int col);
+    boolean isCellValid(int row, int col);
+    boolean isSolved();
+
     int[][] getBoard();
     boolean[][] getFixedCells();
 }
