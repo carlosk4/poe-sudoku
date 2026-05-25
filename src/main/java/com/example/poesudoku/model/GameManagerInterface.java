@@ -17,4 +17,7 @@ public interface GameManagerInterface {
 
     int[][] getBoard();
     boolean[][] getFixedCells();
+
+    int[] getHint();
+    boolean isValidMove(int row, int col, int value);
 }

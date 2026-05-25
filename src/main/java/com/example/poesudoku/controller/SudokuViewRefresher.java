@@ -4,28 +4,40 @@ import com.example.poesudoku.model.GameManagerInterface;
 import com.example.poesudoku.view.CellChangeHandler;
 import com.example.poesudoku.view.GridBuilder;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 public class SudokuViewRefresher {
 
     private final GridPane sudokuGrid;
     private final Button btnUndo;
+    private final Label lblMessage;
     private final GridBuilder gridBuilder;
 
-    public SudokuViewRefresher(GridPane sudokuGrid, Button btnUndo, GridBuilder gridBuilder) {
+    public SudokuViewRefresher(GridPane sudokuGrid, Button btnUndo, Label lblMessage, GridBuilder gridBuilder) {
         this.sudokuGrid = sudokuGrid;
         this.btnUndo = btnUndo;
+        this.lblMessage = lblMessage;
         this.gridBuilder = gridBuilder;
     }
 
-    public void refresh(GameManagerInterface gameManager, CellChangeHandler cellChangeHandler) {
+    public void refresh(
+            GameManagerInterface gameManager,
+            boolean[][] invalidCells,
+            int[] hintCell,
+            String message,
+            CellChangeHandler cellChangeHandler
+    ) {
         gridBuilder.build(
                 sudokuGrid,
                 gameManager.getBoard(),
                 gameManager.getFixedCells(),
+                invalidCells,
+                hintCell,
                 cellChangeHandler
         );
 
+        lblMessage.setText(message);
         refreshActions(gameManager);
     }
 

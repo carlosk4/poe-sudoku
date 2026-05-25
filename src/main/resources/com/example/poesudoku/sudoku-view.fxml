@@ -24,6 +24,10 @@
               vgap="0"
               alignment="CENTER"/>
 
+    <Label fx:id="lblMessage"
+           text=""
+           styleClass="message-label"/>
+
     <HBox spacing="12" alignment="CENTER">
         <Button fx:id="btnUndo" text="Deshacer" styleClass="btn-secondary" onAction="#onUndo"/>
         <Button fx:id="btnNewGame" text="Nueva partida" styleClass="btn-primary" onAction="#onNewGame"/>

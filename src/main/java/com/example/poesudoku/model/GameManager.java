@@ -116,6 +116,41 @@ public class GameManager implements GameManagerInterface {
         return fixedCells;
     }
 
+    @Override
+    public int[] getHint() {
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (board.getCell(row, col) == EMPTY_CELL && !isFixedCell(row, col)) {
+                    for (int value = 1; value <= SIZE; value++) {
+                        if (isValidMove(row, col, value)) {
+                            return new int[]{row, col, value};
+                        }
+                    }
+                }
+            }
+        }
+
+        return new int[0];
+    }
+
+    @Override
+    public boolean isValidMove(int row, int col, int value) {
+        if (!isInsideBoard(row, col) || !isValidCellValue(value)) {
+            return false;
+        }
+
+        if (value == EMPTY_CELL) {
+            return true;
+        }
+
+        int previousValue = board.getCell(row, col);
+        board.setCell(row, col, value);
+        boolean valid = board.isValid(row, col, value);
+        board.setCell(row, col, previousValue);
+
+        return valid;
+    }
+
     private void loadBoard(int[][] boardState) {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {

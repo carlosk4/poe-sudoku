@@ -2,6 +2,7 @@ package com.example.poesudoku.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import com.example.poesudoku.view.ButtonHoverable;
 import com.example.poesudoku.view.ButtonHoverEffect;
@@ -16,6 +17,7 @@ public class SudokuController {
     @FXML private Button btnNewGame;
     @FXML private Button btnHint;
     @FXML private Button btnRestart;
+    @FXML private Label lblMessage;
 
     private final GameManagerInterface gameManager = new GameManager();
     private final GridBuilder gridBuilder = new GridBuilder();
@@ -25,7 +27,12 @@ public class SudokuController {
 
     @FXML
     public void initialize() {
-        SudokuViewRefresher viewRefresher = new SudokuViewRefresher(sudokuGrid, btnUndo, gridBuilder);
+        SudokuViewRefresher viewRefresher = new SudokuViewRefresher(
+                sudokuGrid,
+                btnUndo,
+                lblMessage,
+                gridBuilder
+        );
         presenter = new SudokuGamePresenter(gameManager, viewRefresher);
 
         applyButtonEffects();
@@ -51,7 +58,7 @@ public class SudokuController {
 
     @FXML
     protected void onHint() {
-
+        presenter.showHint();
     }
 
     @FXML

@@ -13,12 +13,27 @@ public class GridBuilder {
 
     private final Hoverable hoverEffect = new CellHoverEffect();
 
-    public void build(GridPane grid, int[][] generatedBoard, boolean[][] fixedCells, CellChangeHandler cellChangeHandler) {
+    public void build(
+            GridPane grid,
+            int[][] generatedBoard,
+            boolean[][] fixedCells,
+            boolean[][] invalidCells,
+            int[] hintCell,
+            CellChangeHandler cellChangeHandler
+    ) {
         grid.getChildren().clear();
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
-                TextField cell = createCell(generatedBoard, fixedCells, row, col, cellChangeHandler);
+                TextField cell = createCell(
+                        generatedBoard,
+                        fixedCells,
+                        invalidCells,
+                        hintCell,
+                        row,
+                        col,
+                        cellChangeHandler
+                );
                 StackPane wrapper = createWrapper(cell, row, col);
 
                 hoverEffect.applyHoverEffect(wrapper);
@@ -30,6 +45,8 @@ public class GridBuilder {
     private TextField createCell(
             int[][] generatedBoard,
             boolean[][] fixedCells,
+            boolean[][] invalidCells,
+            int[] hintCell,
             int row,
             int col,
             CellChangeHandler cellChangeHandler
@@ -50,6 +67,14 @@ public class GridBuilder {
             configureEditableCell(cell, row, col, cellChangeHandler);
         }
 
+        if (invalidCells[row][col]) {
+            cell.getStyleClass().add("cell-error");
+        }
+
+        if (isHintCell(hintCell, row, col)) {
+            cell.getStyleClass().add("cell-hint");
+        }
+
         return cell;
     }
 
@@ -62,6 +87,13 @@ public class GridBuilder {
 
             cellChangeHandler.onCellChanged(row, col, newValue);
         });
+    }
+
+    private boolean isHintCell(int[] hintCell, int row, int col) {
+        return hintCell != null
+                && hintCell.length == 3
+                && hintCell[0] == row
+                && hintCell[1] == col;
     }
 
     private StackPane createWrapper(TextField cell, int row, int col) {

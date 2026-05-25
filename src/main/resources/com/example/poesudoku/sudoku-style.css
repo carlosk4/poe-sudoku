@@ -76,9 +76,26 @@
 .cell-error {
     -fx-background-color: #FDE8E8;
     -fx-text-fill: #C0392B;
+    -fx-border-color: #C0392B;
+    -fx-border-width: 3px;
 }
 
-/* Bordes gruesos entre secciones 2x3 del sudoku */
+.cell-hint {
+    -fx-background-color: #FFF4C2;
+    -fx-text-fill: #8A6D00;
+    -fx-border-color: #F1C40F;
+    -fx-border-width: 3px;
+}
+
+.message-label {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2B2118;
+    -fx-alignment: CENTER;
+    -fx-padding: 4 0 4 0;
+}
+
 .block-right {
     -fx-border-color: transparent #2B2118 transparent transparent;
     -fx-border-width: 0 4px 0 0;
