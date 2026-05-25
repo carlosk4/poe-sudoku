@@ -1,25 +1,46 @@
 package com.example.poesudoku.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import static com.example.poesudoku.model.SudokuConstants.EMPTY_CELL;
 import static com.example.poesudoku.model.SudokuConstants.SIZE;
 
 public class SudokuHintProvider {
 
+    private final Random random = new Random();
 
     public int[] findHint(int[][] currentBoard, int[][] solutionBoard, boolean[][] fixedCells) {
         if (!isValidBoardData(currentBoard, solutionBoard, fixedCells)) {
             return new int[0];
         }
 
+        List<int[]> candidates = findHintCandidates(currentBoard, fixedCells);
+
+        if (candidates.isEmpty()) {
+            return new int[0];
+        }
+
+        int[] selectedCell = candidates.get(random.nextInt(candidates.size()));
+        int row = selectedCell[0];
+        int col = selectedCell[1];
+
+        return new int[]{row, col, solutionBoard[row][col]};
+    }
+
+    private List<int[]> findHintCandidates(int[][] currentBoard, boolean[][] fixedCells) {
+        List<int[]> candidates = new ArrayList<>();
+
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 if (isHintCandidate(currentBoard, fixedCells, row, col)) {
-                    return new int[]{row, col, solutionBoard[row][col]};
+                    candidates.add(new int[]{row, col});
                 }
             }
         }
 
-        return new int[0];
+        return candidates;
     }
 
     private boolean isHintCandidate(int[][] currentBoard, boolean[][] fixedCells, int row, int col) {
