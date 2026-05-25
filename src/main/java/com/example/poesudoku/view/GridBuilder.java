@@ -2,6 +2,7 @@ package com.example.poesudoku.view;
 
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
@@ -106,6 +107,16 @@ public class GridBuilder {
     }
 
     private void configureEditableCell(TextField cell, int row, int col, CellChangeHandler cellChangeHandler) {
+        cell.setStyle("-fx-display-caret: false;");
+
+        cell.setOnMouseDragged(event -> event.consume());
+
+        cell.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.DELETE) {
+                event.consume();
+            }
+        });
+
         cell.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("[1-6]?")) {
                 cell.setText(oldValue);
