@@ -1,5 +1,6 @@
 package com.example.poesudoku.view;
 
+import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -24,6 +25,7 @@ public class GridBuilder {
             CellSelectionHandler cellSelectionHandler
     ) {
         grid.getChildren().clear();
+        TextField focusedCell = null;
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
@@ -40,9 +42,18 @@ public class GridBuilder {
                 );
                 StackPane wrapper = createWrapper(cell, row, col);
 
+                if (isSelectedCell(selectedCell, row, col)) {
+                    focusedCell = cell;
+                }
+
                 hoverEffect.applyHoverEffect(wrapper);
                 grid.add(wrapper, col, row);
             }
+        }
+
+        if (focusedCell != null) {
+            TextField cellToFocus = focusedCell;
+            Platform.runLater(cellToFocus::requestFocus);
         }
     }
 
@@ -106,10 +117,7 @@ public class GridBuilder {
     }
 
     private void configureSelection(TextField cell, int row, int col, CellSelectionHandler cellSelectionHandler) {
-        cell.setOnMouseClicked(event -> {
-            cell.requestFocus();
-            cellSelectionHandler.onCellSelected(row, col);
-        });
+        cell.setOnMouseClicked(event -> cellSelectionHandler.onCellSelected(row, col));
     }
 
     private boolean isSelectedCell(int[] selectedCell, int row, int col) {
