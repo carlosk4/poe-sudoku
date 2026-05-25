@@ -19,7 +19,9 @@ public class GridBuilder {
             boolean[][] fixedCells,
             boolean[][] invalidCells,
             int[] hintCell,
-            CellChangeHandler cellChangeHandler
+            int[] selectedCell,
+            CellChangeHandler cellChangeHandler,
+            CellSelectionHandler cellSelectionHandler
     ) {
         grid.getChildren().clear();
 
@@ -30,9 +32,11 @@ public class GridBuilder {
                         fixedCells,
                         invalidCells,
                         hintCell,
+                        selectedCell,
                         row,
                         col,
-                        cellChangeHandler
+                        cellChangeHandler,
+                        cellSelectionHandler
                 );
                 StackPane wrapper = createWrapper(cell, row, col);
 
@@ -47,9 +51,11 @@ public class GridBuilder {
             boolean[][] fixedCells,
             boolean[][] invalidCells,
             int[] hintCell,
+            int[] selectedCell,
             int row,
             int col,
-            CellChangeHandler cellChangeHandler
+            CellChangeHandler cellChangeHandler,
+            CellSelectionHandler cellSelectionHandler
     ) {
         TextField cell = new TextField();
         cell.getStyleClass().add("cell");
@@ -65,6 +71,16 @@ public class GridBuilder {
             cell.getStyleClass().add("cell-fixed");
         } else {
             configureEditableCell(cell, row, col, cellChangeHandler);
+        }
+
+        configureSelection(cell, row, col, cellSelectionHandler);
+
+        if (isRelatedToSelectedCell(selectedCell, row, col)) {
+            cell.getStyleClass().add("cell-related");
+        }
+
+        if (isSelectedCell(selectedCell, row, col)) {
+            cell.getStyleClass().add("cell-selected");
         }
 
         if (invalidCells[row][col]) {
@@ -87,6 +103,42 @@ public class GridBuilder {
 
             cellChangeHandler.onCellChanged(row, col, newValue);
         });
+    }
+
+    private void configureSelection(TextField cell, int row, int col, CellSelectionHandler cellSelectionHandler) {
+        cell.setOnMouseClicked(event -> {
+            cell.requestFocus();
+            cellSelectionHandler.onCellSelected(row, col);
+        });
+    }
+
+    private boolean isSelectedCell(int[] selectedCell, int row, int col) {
+        return selectedCell != null
+                && selectedCell.length == 2
+                && selectedCell[0] == row
+                && selectedCell[1] == col;
+    }
+
+    private boolean isRelatedToSelectedCell(int[] selectedCell, int row, int col) {
+        if (selectedCell == null || selectedCell.length != 2) {
+            return false;
+        }
+
+        int selectedRow = selectedCell[0];
+        int selectedCol = selectedCell[1];
+
+        return selectedRow == row
+                || selectedCol == col
+                || isSameBlock(selectedRow, selectedCol, row, col);
+    }
+
+    private boolean isSameBlock(int selectedRow, int selectedCol, int row, int col) {
+        int selectedBlockRow = selectedRow / BLOCK_ROWS;
+        int selectedBlockCol = selectedCol / BLOCK_COLUMNS;
+        int currentBlockRow = row / BLOCK_ROWS;
+        int currentBlockCol = col / BLOCK_COLUMNS;
+
+        return selectedBlockRow == currentBlockRow && selectedBlockCol == currentBlockCol;
     }
 
     private boolean isHintCell(int[] hintCell, int row, int col) {

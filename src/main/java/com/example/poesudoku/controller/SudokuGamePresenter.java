@@ -12,6 +12,7 @@ public class SudokuGamePresenter {
 
     private boolean[][] invalidCells = new boolean[SIZE][SIZE];
     private int[] hintCell = new int[0];
+    private int[] selectedCell = new int[0];
     private String message = "";
 
     public SudokuGamePresenter(GameManagerInterface gameManager, SudokuViewRefresher viewRefresher) {
@@ -51,10 +52,18 @@ public class SudokuGamePresenter {
         int col = hintCell[1];
         int value = hintCell[2];
 
+        selectedCell = new int[]{row, col};
+
         message = "Sugerencia: coloca el número " + value
                 + " en la fila " + (row + 1)
                 + ", columna " + (col + 1) + ".";
 
+        refreshView();
+    }
+
+    public void handleCellSelected(int row, int col) {
+        selectedCell = new int[]{row, col};
+        message = "Celda seleccionada: fila " + (row + 1) + ", columna " + (col + 1) + ".";
         refreshView();
     }
 
@@ -90,8 +99,10 @@ public class SudokuGamePresenter {
                 gameManager,
                 invalidCells,
                 hintCell,
+                selectedCell,
                 message,
-                this::handleCellChanged
+                this::handleCellChanged,
+                this::handleCellSelected
         );
     }
 
@@ -108,6 +119,7 @@ public class SudokuGamePresenter {
     private void clearFeedback() {
         invalidCells = new boolean[SIZE][SIZE];
         hintCell = new int[0];
+        selectedCell = new int[0];
         message = "";
     }
 

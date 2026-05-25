@@ -67,6 +67,16 @@
     -fx-background-color: #EDEAE3;
 }
 
+.cell-related {
+    -fx-background-color: #EEE6D8;
+}
+
+.cell-selected {
+    -fx-background-color: #D8C7A8;
+    -fx-border-color: #8A6D3B;
+    -fx-border-width: 3px;
+}
+
 .cell-fixed {
     -fx-font-weight: bold;
     -fx-text-fill: #2B2118;

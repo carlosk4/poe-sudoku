@@ -2,6 +2,7 @@ package com.example.poesudoku.controller;
 
 import com.example.poesudoku.model.GameManagerInterface;
 import com.example.poesudoku.view.CellChangeHandler;
+import com.example.poesudoku.view.CellSelectionHandler;
 import com.example.poesudoku.view.GridBuilder;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,8 +26,10 @@ public class SudokuViewRefresher {
             GameManagerInterface gameManager,
             boolean[][] invalidCells,
             int[] hintCell,
+            int[] selectedCell,
             String message,
-            CellChangeHandler cellChangeHandler
+            CellChangeHandler cellChangeHandler,
+            CellSelectionHandler cellSelectionHandler
     ) {
         gridBuilder.build(
                 sudokuGrid,
@@ -34,7 +37,9 @@ public class SudokuViewRefresher {
                 gameManager.getFixedCells(),
                 invalidCells,
                 hintCell,
-                cellChangeHandler
+                selectedCell,
+                cellChangeHandler,
+                cellSelectionHandler
         );
 
         lblMessage.setText(message);
