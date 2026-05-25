@@ -19,5 +19,7 @@ public interface GameManagerInterface {
     boolean[][] getFixedCells();
 
     int[] getHint();
+    void registerHintUsed();
+    int getHintsUsed();
     boolean isValidMove(int row, int col, int value);
 }

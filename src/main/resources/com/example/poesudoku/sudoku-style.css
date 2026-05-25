@@ -106,6 +106,15 @@
     -fx-padding: 4 0 4 0;
 }
 
+.grade-label {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 82px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2B2118;
+    -fx-alignment: CENTER;
+    -fx-padding: 8 0 8 0;
+}
+
 .block-right {
     -fx-border-color: transparent #2B2118 transparent transparent;
     -fx-border-width: 0 4px 0 0;

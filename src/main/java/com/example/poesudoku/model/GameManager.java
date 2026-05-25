@@ -12,6 +12,7 @@ public class GameManager implements GameManagerInterface {
 
     private boolean[][] fixedCells = new boolean[SIZE][SIZE];
     private int[][] solutionBoard = new int[SIZE][SIZE];
+    private int hintsUsed;
 
     @Override
     public void startNewGame() {
@@ -20,6 +21,7 @@ public class GameManager implements GameManagerInterface {
 
         fixedCells = generator.getFixedCells();
         solutionBoard = generator.getGeneratedBoard();
+        hintsUsed = 0;
 
         board.reset();
 
@@ -121,6 +123,16 @@ public class GameManager implements GameManagerInterface {
     @Override
     public int[] getHint() {
         return hintProvider.findHint(board.getBoard(), solutionBoard, fixedCells);
+    }
+
+    @Override
+    public void registerHintUsed() {
+        hintsUsed++;
+    }
+
+    @Override
+    public int getHintsUsed() {
+        return hintsUsed;
     }
 
     @Override

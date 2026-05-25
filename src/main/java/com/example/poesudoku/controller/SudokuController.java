@@ -34,7 +34,11 @@ public class SudokuController {
                 lblMessage,
                 gridBuilder
         );
-        presenter = new SudokuGamePresenter(gameManager, viewRefresher);
+        presenter = new SudokuGamePresenter(
+                gameManager,
+                viewRefresher,
+                this::showVictoryScreen
+        );
 
         applyButtonEffects();
         presenter.startNewGame();
@@ -66,5 +70,10 @@ public class SudokuController {
     @FXML
     protected void onRestart() {
         presenter.restart();
+    }
+
+    private void showVictoryScreen() {
+        Stage stage = (Stage) btnNewGame.getScene().getWindow();
+        SceneNavigator.showVictory(stage);
     }
 }

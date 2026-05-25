@@ -1,6 +1,9 @@
 package com.example.poesudoku.controller;
 
 import com.example.poesudoku.model.GameManagerInterface;
+import com.example.poesudoku.model.GameSessionResult;
+import com.example.poesudoku.model.VictoryGrader;
+import com.example.poesudoku.model.VictoryResult;
 
 import static com.example.poesudoku.model.SudokuConstants.EMPTY_CELL;
 import static com.example.poesudoku.model.SudokuConstants.SIZE;
@@ -9,15 +12,22 @@ public class SudokuGamePresenter {
 
     private final GameManagerInterface gameManager;
     private final SudokuViewRefresher viewRefresher;
+    private final VictoryGrader victoryGrader = new VictoryGrader();
+    private final Runnable victoryAction;
 
     private boolean[][] invalidCells = new boolean[SIZE][SIZE];
     private int[] hintCell = new int[0];
     private int[] selectedCell = new int[0];
     private String message = "";
 
-    public SudokuGamePresenter(GameManagerInterface gameManager, SudokuViewRefresher viewRefresher) {
+    public SudokuGamePresenter(
+            GameManagerInterface gameManager,
+            SudokuViewRefresher viewRefresher,
+            Runnable victoryAction
+    ) {
         this.gameManager = gameManager;
         this.viewRefresher = viewRefresher;
+        this.victoryAction = victoryAction;
     }
 
     public void startNewGame() {
@@ -47,6 +57,8 @@ public class SudokuGamePresenter {
             refreshView();
             return;
         }
+
+        gameManager.registerHintUsed();
 
         int row = hintCell[0];
         int col = hintCell[1];
@@ -83,15 +95,29 @@ public class SudokuGamePresenter {
 
         if (value == EMPTY_CELL) {
             message = "Celda limpiada.";
-        } else if (!gameManager.isCellValid(row, col)) {
-            message = "Movimiento inválido: el número se repite en fila, columna o bloque.";
-        } else if (gameManager.isSolved()) {
-            message = "¡Felicitaciones! Has completado el Sudoku.";
-        } else {
-            message = "Movimiento válido.";
+            refreshView();
+            return;
         }
 
+        if (!gameManager.isCellValid(row, col)) {
+            message = "Movimiento inválido: el número se repite en fila, columna o bloque.";
+            refreshView();
+            return;
+        }
+
+        if (gameManager.isSolved()) {
+            showVictoryScreen();
+            return;
+        }
+
+        message = "Movimiento válido.";
         refreshView();
+    }
+
+    private void showVictoryScreen() {
+        String grade = victoryGrader.calculateGrade(gameManager.getHintsUsed());
+        GameSessionResult.setCurrentResult(new VictoryResult(gameManager.getHintsUsed(), grade));
+        victoryAction.run();
     }
 
     private void refreshView() {
