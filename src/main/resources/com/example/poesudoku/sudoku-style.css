@@ -131,19 +131,16 @@
     -fx-font-size: 13px;
     -fx-background-radius: 0;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(43,33,24,0.22), 8, 0, 0, 2);
 }
 
 .btn-primary:hover {
-    -fx-background-color: #F5F2ED;
-    -fx-text-fill: #2B2118;
-    -fx-border-color: transparent;
-    -fx-effect: none;
+    -fx-background-color: #2B2118;
+    -fx-text-fill: #F5F2ED;
+    -fx-border-color: #2B2118;
 }
 
 .btn-primary:pressed {
     -fx-background-color: #1A110A;
-    -fx-effect: dropshadow(gaussian, rgba(43,33,24,0.12), 4, 0, 0, 1);
 }
 
 .btn-secondary {
@@ -154,19 +151,19 @@
     -fx-font-family: "Century Gothic";
     -fx-font-weight: bold;
     -fx-font-size: 13px;
+    -fx-background-radius: 0;
     -fx-border-color: #2B2118;
     -fx-border-width: 5px;
-    -fx-background-radius: 0;
     -fx-border-radius: 0;
     -fx-cursor: hand;
 }
 
 .btn-secondary:hover {
-    -fx-background-color: #F5F2ED;
-    -fx-text-fill: #2B2118;
-    -fx-border-color: transparent;
+    -fx-background-color: #2B2118;
+    -fx-text-fill: #F5F2ED;
+    -fx-border-color: #2B2118;
 }
 
 .btn-secondary:pressed {
-    -fx-background-color: #DDD6C8;
+    -fx-background-color: #1A110A;
 }

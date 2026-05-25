@@ -1,8 +1,7 @@
 package com.example.poesudoku;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import com.example.poesudoku.controller.SceneNavigator;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -12,14 +11,10 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(
-                Main.class.getResource("sudoku-view.fxml")
-        );
-        Scene scene = new Scene(loader.load());
-        primaryStage.setTitle("POE SUDOKU");
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("SUDOKU");
         primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
+        SceneNavigator.showMainMenu(primaryStage);
         primaryStage.show();
     }
 }

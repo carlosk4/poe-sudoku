@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import com.example.poesudoku.view.ButtonHoverable;
 import com.example.poesudoku.view.ButtonHoverEffect;
 import com.example.poesudoku.view.GridBuilder;
@@ -53,7 +54,8 @@ public class SudokuController {
 
     @FXML
     protected void onNewGame() {
-        presenter.startNewGame();
+        Stage stage = (Stage) btnNewGame.getScene().getWindow();
+        SceneNavigator.showMainMenu(stage);
     }
 
     @FXML

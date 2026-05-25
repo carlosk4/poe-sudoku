@@ -29,10 +29,10 @@
            styleClass="message-label"/>
 
     <HBox spacing="12" alignment="CENTER">
-        <Button fx:id="btnUndo" text="Deshacer" styleClass="btn-secondary" onAction="#onUndo"/>
-        <Button fx:id="btnNewGame" text="Nueva partida" styleClass="btn-primary" onAction="#onNewGame"/>
-        <Button fx:id="btnHint" text="Ayuda" styleClass="btn-secondary" onAction="#onHint"/>
-        <Button fx:id="btnRestart" text="Reiniciar" styleClass="btn-secondary" onAction="#onRestart"/>
+        <Button fx:id="btnUndo" text="Deshacer" styleClass="btn-primary" onAction="#onUndo"/>
+        <Button fx:id="btnNewGame" text="Volver al menú" styleClass="btn-primary" onAction="#onNewGame"/>
+        <Button fx:id="btnHint" text="Ayuda" styleClass="btn-primary" onAction="#onHint"/>
+        <Button fx:id="btnRestart" text="Reiniciar" styleClass="btn-primary" onAction="#onRestart"/>
     </HBox>
 
 </VBox>
