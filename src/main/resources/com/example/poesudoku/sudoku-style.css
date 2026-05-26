@@ -171,8 +171,9 @@
 
 .btn-primary:hover,
 .btn-secondary:hover {
-    -fx-background-color: #3A2A1D;
-    -fx-border-color: #A47A4D;
+    -fx-background-color: #FFF8EF;
+    -fx-text-fill: #2B2118;
+    -fx-border-color: #2B2118;
 }
 
 .btn-primary:pressed,
