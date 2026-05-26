@@ -1,9 +1,9 @@
 .root {
-    -fx-background-color: #F7F8FA;
+    -fx-background-color: #F6F1EA;
 }
 
 .root-container {
-    -fx-background-color: #F7F8FA;
+    -fx-background-color: #F6F1EA;
     -fx-alignment: CENTER;
 }
 
@@ -11,13 +11,13 @@
     -fx-font-family: "Segoe UI", "Arial";
     -fx-font-size: 34px;
     -fx-font-weight: 700;
-    -fx-text-fill: #1F2933;
+    -fx-text-fill: #2B2118;
 }
 
 .subtitle {
     -fx-font-family: "Segoe UI", "Arial";
     -fx-font-size: 13px;
-    -fx-text-fill: #667085;
+    -fx-text-fill: #806E5A;
 }
 
 .board-container {
@@ -25,25 +25,25 @@
 }
 
 .sudoku-grid {
-    -fx-background-color: #1F2933;
-    -fx-border-color: #1F2933;
+    -fx-background-color: #2B2118;
+    -fx-border-color: #2B2118;
     -fx-border-width: 2;
     -fx-padding: 4;
     -fx-hgap: 1;
     -fx-vgap: 1;
-    -fx-effect: dropshadow(gaussian, rgba(31,41,51,0.14), 22, 0, 0, 8);
+    -fx-effect: dropshadow(gaussian, rgba(43,33,24,0.18), 22, 0, 0, 8);
 }
 
 .cell-wrapper {
     -fx-pref-width: 68px;
     -fx-pref-height: 68px;
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #FFFDF9;
     -fx-padding: 0;
     -fx-background-insets: 0;
 }
 
 .cell-wrapper-hover {
-    -fx-background-color: #EEF6F8;
+    -fx-background-color: #F1E6D7;
 }
 
 .cell {
@@ -52,7 +52,7 @@
     -fx-font-size: 25px;
     -fx-font-family: "Consolas", "Courier New";
     -fx-font-weight: 600;
-    -fx-text-fill: #263238;
+    -fx-text-fill: #2B2118;
     -fx-background-color: transparent;
     -fx-alignment: CENTER;
     -fx-border-color: transparent;
@@ -73,32 +73,32 @@
 }
 
 .cell-related {
-    -fx-background-color: #EEF6F8;
+    -fx-background-color: #F1E6D7;
 }
 
 .cell-selected {
-    -fx-background-color: #D9EEF2;
-    -fx-border-color: #2F7D8C;
+    -fx-background-color: #DFC8A7;
+    -fx-border-color: #8A6236;
     -fx-border-width: 2px;
 }
 
 .cell-fixed {
     -fx-font-weight: 700;
-    -fx-text-fill: #111827;
-    -fx-background-color: #EEF0F3;
+    -fx-text-fill: #2B2118;
+    -fx-background-color: #E5D9C9;
 }
 
 .cell-error {
-    -fx-background-color: #FDECEC;
-    -fx-text-fill: #B42318;
-    -fx-border-color: #D92D20;
+    -fx-background-color: #F9E3DD;
+    -fx-text-fill: #A6422A;
+    -fx-border-color: #B65338;
     -fx-border-width: 2px;
 }
 
 .cell-hint {
-    -fx-background-color: #FFF4D6;
-    -fx-text-fill: #8A5A00;
-    -fx-border-color: #EAAA08;
+    -fx-background-color: #F8EBC8;
+    -fx-text-fill: #7A520D;
+    -fx-border-color: #C08A2C;
     -fx-border-width: 2px;
 }
 
@@ -106,7 +106,7 @@
     -fx-font-family: "Segoe UI", "Arial";
     -fx-font-size: 15px;
     -fx-font-weight: 700;
-    -fx-text-fill: #B54708;
+    -fx-text-fill: #A85F22;
     -fx-padding: 3 6 0 0;
     -fx-mouse-transparent: true;
 }
@@ -115,7 +115,7 @@
     -fx-font-family: "Segoe UI", "Arial";
     -fx-font-size: 14px;
     -fx-font-weight: 600;
-    -fx-text-fill: #344054;
+    -fx-text-fill: #5D4B3A;
     -fx-alignment: CENTER;
     -fx-padding: 2 0;
     -fx-min-height: 24px;
@@ -125,23 +125,23 @@
     -fx-font-family: "Segoe UI", "Arial";
     -fx-font-size: 88px;
     -fx-font-weight: 800;
-    -fx-text-fill: #1F2933;
+    -fx-text-fill: #2B2118;
     -fx-alignment: CENTER;
     -fx-padding: 0 0 4 0;
 }
 
 .block-right {
-    -fx-border-color: transparent #1F2933 transparent transparent;
+    -fx-border-color: transparent #2B2118 transparent transparent;
     -fx-border-width: 0 3px 0 0;
 }
 
 .block-bottom {
-    -fx-border-color: transparent transparent #1F2933 transparent;
+    -fx-border-color: transparent transparent #2B2118 transparent;
     -fx-border-width: 0 0 3px 0;
 }
 
 .block-right.block-bottom {
-    -fx-border-color: transparent #1F2933 #1F2933 transparent;
+    -fx-border-color: transparent #2B2118 #2B2118 transparent;
     -fx-border-width: 0 3px 3px 0;
 }
 
@@ -156,8 +156,8 @@
     -fx-min-width: 136px;
     -fx-pref-height: 42px;
     -fx-min-height: 42px;
-    -fx-background-color: #1F2933;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #2B2118;
+    -fx-text-fill: #FFF8EF;
     -fx-font-family: "Segoe UI", "Arial";
     -fx-font-weight: 700;
     -fx-font-size: 13px;
@@ -171,13 +171,13 @@
 
 .btn-primary:hover,
 .btn-secondary:hover {
-    -fx-background-color: #263746;
-    -fx-border-color: #2F7D8C;
+    -fx-background-color: #3A2A1D;
+    -fx-border-color: #A47A4D;
 }
 
 .btn-primary:pressed,
 .btn-secondary:pressed {
-    -fx-background-color: #111827;
+    -fx-background-color: #1A110A;
 }
 
 .btn-primary:disabled,
