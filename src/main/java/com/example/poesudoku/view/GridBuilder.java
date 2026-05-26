@@ -43,6 +43,14 @@ public class GridBuilder {
                 );
                 StackPane wrapper = createWrapper(cell, row, col);
 
+                if (isHintCell(hintCell, row, col)) {
+                    cell.setText("");
+                    javafx.scene.control.Label hintLabel = new javafx.scene.control.Label(String.valueOf(hintCell[2]));
+                    hintLabel.getStyleClass().add("hint-marker");
+                    wrapper.getChildren().add(hintLabel);
+                    StackPane.setAlignment(hintLabel, javafx.geometry.Pos.TOP_RIGHT);
+                }
+
                 if (isSelectedCell(selectedCell, row, col)) {
                     focusedCell = cell;
                 }

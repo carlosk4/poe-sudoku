@@ -66,8 +66,7 @@ public class SudokuGamePresenter {
 
         selectedCell = new int[]{row, col};
 
-        message = "Sugerencia: coloca el número " + value
-                + " en la fila " + (row + 1)
+        message = "Sugerencia en la fila " + (row + 1)
                 + ", columna " + (col + 1) + ".";
 
         refreshView();
@@ -75,6 +74,7 @@ public class SudokuGamePresenter {
 
     public void handleCellSelected(int row, int col) {
         selectedCell = new int[]{row, col};
+        hintCell = new int[0];
         message = "Celda seleccionada: fila " + (row + 1) + ", columna " + (col + 1) + ".";
         refreshView();
     }

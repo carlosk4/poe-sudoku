@@ -97,6 +97,15 @@
     -fx-border-width: 3px;
 }
 
+.hint-marker {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #E67E22;
+    -fx-padding: 2 5 0 0;
+    -fx-mouse-transparent: true;
+}
+
 .message-label {
     -fx-font-family: "Century Gothic";
     -fx-font-size: 14px;
