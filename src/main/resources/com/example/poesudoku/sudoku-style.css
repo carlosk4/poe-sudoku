@@ -1,44 +1,57 @@
 .root {
-    -fx-background-color: #F5F2ED;
+    -fx-background-color: #F6F1EA;
 }
 
 .root-container {
-    -fx-background-color: #F5F2ED;
+    -fx-background-color: #F6F1EA;
     -fx-alignment: CENTER;
 }
 
 .title {
-    -fx-font-family: "Century Gothic";
-    -fx-font-size: 30px;
-    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-font-size: 34px;
+    -fx-font-weight: 700;
     -fx-text-fill: #2B2118;
 }
 
 .subtitle {
-    -fx-font-family: "Century Gothic";
+    -fx-font-family: "Segoe UI", "Arial";
     -fx-font-size: 13px;
-    -fx-text-fill: #7A6A58;
+    -fx-text-fill: #806E5A;
 }
 
 .board-container {
-    -fx-padding: 8 8 8 8;
+    -fx-padding: 8;
 }
 
 .sudoku-grid {
     -fx-background-color: #2B2118;
     -fx-border-color: #2B2118;
-    -fx-border-width: 3;
-    -fx-padding: 7 5 7 5;
+    -fx-border-width: 2;
+    -fx-padding: 4;
     -fx-hgap: 1;
     -fx-vgap: 1;
-    -fx-effect: dropshadow(gaussian, rgba(43,33,24,0.18), 18, 0, 0, 4);
+    -fx-effect: dropshadow(gaussian, rgba(43,33,24,0.18), 22, 0, 0, 8);
+}
+
+.cell-wrapper {
+    -fx-pref-width: 68px;
+    -fx-pref-height: 68px;
+    -fx-background-color: #FFFDF9;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.cell-wrapper-hover {
+    -fx-background-color: #F1E6D7;
 }
 
 .cell {
-    -fx-pref-width: 74px;
-    -fx-pref-height: 74px;
-    -fx-font-size: 26px;
-    -fx-font-family: "Courier New";
+    -fx-pref-width: 68px;
+    -fx-pref-height: 68px;
+    -fx-font-size: 25px;
+    -fx-font-family: "Consolas", "Courier New";
+    -fx-font-weight: 600;
     -fx-text-fill: #2B2118;
     -fx-background-color: transparent;
     -fx-alignment: CENTER;
@@ -51,137 +64,113 @@
     -fx-faint-focus-color: transparent;
 }
 
-.cell-wrapper {
-    -fx-pref-width: 74px;
-    -fx-pref-height: 74px;
-    -fx-background-color: #F5F2ED;
-    -fx-padding: 0;
-    -fx-background-insets: 0;
-}
-
 .cell:focused {
-    -fx-background-color: #E8E0D2;
+    -fx-background-color: transparent;
 }
 
 .cell:hover {
-    -fx-background-color: #EDEAE3;
+    -fx-background-color: transparent;
 }
 
 .cell-related {
-    -fx-background-color: #EEE6D8;
+    -fx-background-color: #F1E6D7;
 }
 
 .cell-selected {
-    -fx-background-color: #D8C7A8;
-    -fx-border-color: #8A6D3B;
-    -fx-border-width: 3px;
+    -fx-background-color: #DFC8A7;
+    -fx-border-color: #8A6236;
+    -fx-border-width: 2px;
 }
 
 .cell-fixed {
-    -fx-font-weight: bold;
+    -fx-font-weight: 700;
     -fx-text-fill: #2B2118;
-    -fx-background-color: #DDD6C8;
+    -fx-background-color: #E5D9C9;
 }
 
 .cell-error {
-    -fx-background-color: #FDE8E8;
-    -fx-text-fill: #C0392B;
-    -fx-border-color: #C0392B;
-    -fx-border-width: 3px;
+    -fx-background-color: #F9E3DD;
+    -fx-text-fill: #A6422A;
+    -fx-border-color: #B65338;
+    -fx-border-width: 2px;
 }
 
 .cell-hint {
-    -fx-background-color: #FFF4C2;
-    -fx-text-fill: #8A6D00;
-    -fx-border-color: #F1C40F;
-    -fx-border-width: 3px;
+    -fx-background-color: #E9E2CB;
+    -fx-text-fill: #405234;
+    -fx-border-color: #76835A;
+    -fx-border-width: 2px;
 }
 
 .hint-marker {
-    -fx-font-family: "Century Gothic";
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #E67E22;
-    -fx-padding: 2 5 0 0;
+    -fx-font-family: "Consolas", "Courier New";
+    -fx-font-size: 25px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #405234;
+    -fx-alignment: CENTER;
+    -fx-padding: 0;
     -fx-mouse-transparent: true;
 }
 
 .message-label {
-    -fx-font-family: "Century Gothic";
+    -fx-font-family: "Segoe UI", "Arial";
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2B2118;
+    -fx-font-weight: 600;
+    -fx-text-fill: #5D4B3A;
     -fx-alignment: CENTER;
-    -fx-padding: 4 0 4 0;
+    -fx-padding: 2 0;
+    -fx-min-height: 24px;
 }
 
 .grade-label {
-    -fx-font-family: "Century Gothic";
-    -fx-font-size: 82px;
-    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-font-size: 88px;
+    -fx-font-weight: 800;
     -fx-text-fill: #2B2118;
     -fx-alignment: CENTER;
-    -fx-padding: 8 0 8 0;
+    -fx-padding: 0 0 4 0;
 }
 
 .block-right {
     -fx-border-color: transparent #2B2118 transparent transparent;
-    -fx-border-width: 0 4px 0 0;
+    -fx-border-width: 0 3px 0 0;
 }
 
 .block-bottom {
     -fx-border-color: transparent transparent #2B2118 transparent;
-    -fx-border-width: 0 0 4px 0;
+    -fx-border-width: 0 0 3px 0;
 }
 
 .block-right.block-bottom {
     -fx-border-color: transparent #2B2118 #2B2118 transparent;
-    -fx-border-width: 0 4px 4px 0;
+    -fx-border-width: 0 3px 3px 0;
 }
 
-.btn-primary {
-    -fx-pref-width: 148px;
-    -fx-pref-height: 42px;
-    -fx-background-color: #2B2118;
-    -fx-text-fill: #F5F2ED;
-    -fx-font-family: "Century Gothic";
-    -fx-font-weight: bold;
-    -fx-font-size: 13px;
-    -fx-background-radius: 0;
-    -fx-cursor: hand;
+.action-bar {
+    -fx-spacing: 10;
+    -fx-alignment: CENTER;
 }
 
-.btn-primary:hover {
-    -fx-background-color: #2B2118;
-    -fx-text-fill: #F5F2ED;
-    -fx-border-color: #2B2118;
-}
-
-.btn-primary:pressed {
-    -fx-background-color: #1A110A;
-}
-
+.btn-primary,
 .btn-secondary {
-    -fx-pref-width: 148px;
+    -fx-pref-width: 136px;
+    -fx-min-width: 136px;
     -fx-pref-height: 42px;
+    -fx-min-height: 42px;
     -fx-background-color: #2B2118;
-    -fx-text-fill: #F5F2ED;
-    -fx-font-family: "Century Gothic";
-    -fx-font-weight: bold;
+    -fx-text-fill: #FFF8EF;
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-font-weight: 700;
     -fx-font-size: 13px;
-    -fx-background-radius: 0;
-    -fx-border-color: #2B2118;
-    -fx-border-width: 5px;
-    -fx-border-radius: 0;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: transparent;
+    -fx-border-width: 1px;
     -fx-cursor: hand;
+    -fx-padding: 0 12;
 }
 
-.btn-secondary:hover {
-    -fx-background-color: #2B2118;
-    -fx-text-fill: #F5F2ED;
-    -fx-border-color: #2B2118;
-}
-
-.btn-secondary:pressed {
-    -fx-background-color: #1A110A;
+.btn-primary:disabled,
+.btn-secondary:disabled {
+    -fx-opacity: 0.42;
 }

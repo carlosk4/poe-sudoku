@@ -12,7 +12,7 @@
       stylesheets="@sudoku-style.css"
       spacing="24"
       fillWidth="false"
-      prefWidth="620"
+      prefWidth="680"
       prefHeight="640">
 
     <padding>
@@ -30,7 +30,7 @@
            text="Pistas usadas: 0"
            styleClass="message-label"/>
 
-    <HBox spacing="12" alignment="CENTER">
+    <HBox spacing="12" alignment="CENTER" styleClass="action-bar">
         <Button fx:id="btnMainMenu"
                 text="Menú"
                 styleClass="btn-primary"

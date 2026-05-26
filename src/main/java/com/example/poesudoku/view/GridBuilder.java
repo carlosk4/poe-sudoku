@@ -1,10 +1,17 @@
 package com.example.poesudoku.view;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 import static com.example.poesudoku.model.SudokuConstants.BLOCK_COLUMNS;
 import static com.example.poesudoku.model.SudokuConstants.BLOCK_ROWS;
@@ -12,6 +19,8 @@ import static com.example.poesudoku.model.SudokuConstants.EMPTY_CELL;
 import static com.example.poesudoku.model.SudokuConstants.SIZE;
 
 public class GridBuilder {
+
+    private static final Duration HINT_DURATION = Duration.millis(180);
 
     private final Hoverable hoverEffect = new CellHoverEffect();
 
@@ -45,10 +54,9 @@ public class GridBuilder {
 
                 if (isHintCell(hintCell, row, col)) {
                     cell.setText("");
-                    javafx.scene.control.Label hintLabel = new javafx.scene.control.Label(String.valueOf(hintCell[2]));
-                    hintLabel.getStyleClass().add("hint-marker");
+                    Label hintLabel = createHintLabel(hintCell[2]);
                     wrapper.getChildren().add(hintLabel);
-                    StackPane.setAlignment(hintLabel, javafx.geometry.Pos.TOP_RIGHT);
+                    animateHint(hintLabel);
                 }
 
                 if (isSelectedCell(selectedCell, row, col)) {
@@ -112,6 +120,30 @@ public class GridBuilder {
         }
 
         return cell;
+    }
+
+    private Label createHintLabel(int hintValue) {
+        Label hintLabel = new Label(String.valueOf(hintValue));
+        hintLabel.getStyleClass().add("hint-marker");
+        hintLabel.setMouseTransparent(true);
+        StackPane.setAlignment(hintLabel, Pos.CENTER);
+        return hintLabel;
+    }
+
+    private void animateHint(Label hintLabel) {
+        hintLabel.setOpacity(0);
+        hintLabel.setScaleX(0.82);
+        hintLabel.setScaleY(0.82);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(
+                        HINT_DURATION,
+                        new KeyValue(hintLabel.opacityProperty(), 1, Interpolator.EASE_OUT),
+                        new KeyValue(hintLabel.scaleXProperty(), 1, Interpolator.EASE_OUT),
+                        new KeyValue(hintLabel.scaleYProperty(), 1, Interpolator.EASE_OUT)
+                )
+        );
+        timeline.play();
     }
 
     private void configureEditableCell(TextField cell, int row, int col, CellChangeHandler cellChangeHandler) {

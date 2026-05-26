@@ -1,10 +1,16 @@
 package com.example.poesudoku.view;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 public class CellHoverEffect implements Hoverable {
 
     private static final String HOVER_CLASS = "cell-wrapper-hover";
+    private static final Duration HOVER_DURATION = Duration.millis(110);
 
     @Override
     public void applyHoverEffect(StackPane wrapper) {
@@ -12,8 +18,23 @@ public class CellHoverEffect implements Hoverable {
             if (!wrapper.getStyleClass().contains(HOVER_CLASS)) {
                 wrapper.getStyleClass().add(HOVER_CLASS);
             }
+            animate(wrapper, 1.015);
         });
 
-        wrapper.setOnMouseExited(e -> wrapper.getStyleClass().remove(HOVER_CLASS));
+        wrapper.setOnMouseExited(e -> {
+            wrapper.getStyleClass().remove(HOVER_CLASS);
+            animate(wrapper, 1.0);
+        });
+    }
+
+    private void animate(StackPane wrapper, double scale) {
+        Timeline timeline = new Timeline(
+                new KeyFrame(
+                        HOVER_DURATION,
+                        new KeyValue(wrapper.scaleXProperty(), scale, Interpolator.EASE_OUT),
+                        new KeyValue(wrapper.scaleYProperty(), scale, Interpolator.EASE_OUT)
+                )
+        );
+        timeline.play();
     }
 }
