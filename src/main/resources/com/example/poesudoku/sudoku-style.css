@@ -169,18 +169,6 @@
     -fx-padding: 0 12;
 }
 
-.btn-primary:hover,
-.btn-secondary:hover {
-    -fx-background-color: #FFF8EF;
-    -fx-text-fill: #2B2118;
-    -fx-border-color: #2B2118;
-}
-
-.btn-primary:pressed,
-.btn-secondary:pressed {
-    -fx-background-color: #1A110A;
-}
-
 .btn-primary:disabled,
 .btn-secondary:disabled {
     -fx-opacity: 0.42;
