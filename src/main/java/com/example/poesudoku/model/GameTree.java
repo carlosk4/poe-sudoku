@@ -1,7 +1,5 @@
 package com.example.poesudoku.model;
 
-import java.util.List;
-
 import static com.example.poesudoku.model.SudokuConstants.SIZE;
 
 public class GameTree {
@@ -34,35 +32,8 @@ public class GameTree {
         return current.getBoardState();
     }
 
-    public int[][] redo(int childIndex) {
-        if (!canRedo(childIndex)) {
-            return getCurrentBoardState();
-        }
-
-        current = current.getChild(childIndex);
-        return current.getBoardState();
-    }
-
     public boolean canUndo() {
         return current != null && current.getParent() != null;
-    }
-
-    public boolean canRedo() {
-        return current != null && current.hasChildren();
-    }
-
-    public boolean canRedo(int childIndex) {
-        return current != null
-                && childIndex >= 0
-                && childIndex < current.getChildrenCount();
-    }
-
-    public List<GameStateNode> getCurrentBranches() {
-        if (current == null) {
-            return List.of();
-        }
-
-        return current.getChildren();
     }
 
     public int[][] getCurrentBoardState() {

@@ -65,7 +65,6 @@ public class SudokuGamePresenter {
 
         int row = hintCell[0];
         int col = hintCell[1];
-        int value = hintCell[2];
 
         selectedCell = new int[]{row, col};
 
