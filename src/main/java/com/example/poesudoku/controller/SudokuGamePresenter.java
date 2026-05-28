@@ -10,6 +10,13 @@ import com.example.poesudoku.model.VictoryResult;
 
 import static com.example.poesudoku.model.SudokuConstants.SIZE;
 
+/**
+ * Coordinates Sudoku game state with the view layer.
+ *
+ * @author Joan Lorenzo H. (carlosk4)
+ * @author Abraham Y.
+ * @version 1.0
+ */
 public class SudokuGamePresenter {
 
     private final GameManagerInterface gameManager;
@@ -23,6 +30,13 @@ public class SudokuGamePresenter {
     private int[] selectedCell = new int[0];
     private String message = "";
 
+    /**
+     * Creates a presenter for a Sudoku game.
+     *
+     * @param gameManager game state manager
+     * @param viewRefresher view refresh service
+     * @param victoryAction victory navigation action
+     */
     public SudokuGamePresenter(
             GameManagerInterface gameManager,
             SudokuViewRefresher viewRefresher,
@@ -33,6 +47,9 @@ public class SudokuGamePresenter {
         this.victoryAction = victoryAction;
     }
 
+    /**
+     * Starts a new Sudoku game.
+     */
     public void startNewGame() {
         gameManager.startNewGame();
         clearFeedback();
@@ -40,6 +57,9 @@ public class SudokuGamePresenter {
         refreshView();
     }
 
+    /**
+     * Reverts the latest game move.
+     */
     public void undo() {
         gameManager.undo();
         updateInvalidCells();
@@ -48,10 +68,16 @@ public class SudokuGamePresenter {
         refreshView();
     }
 
+    /**
+     * Restarts the game.
+     */
     public void restart() {
         startNewGame();
     }
 
+    /**
+     * Requests and displays a hint.
+     */
     public void showHint() {
         hintCell = gameManager.getHint();
 
@@ -74,6 +100,12 @@ public class SudokuGamePresenter {
         refreshView();
     }
 
+    /**
+     * Stores the selected board cell.
+     *
+     * @param row selected row
+     * @param col selected column
+     */
     public void handleCellSelected(int row, int col) {
         selectedCell = new int[]{row, col};
         hintCell = new int[0];
@@ -81,6 +113,13 @@ public class SudokuGamePresenter {
         refreshView();
     }
 
+    /**
+     * Processes text entered into a board cell.
+     *
+     * @param row changed row
+     * @param col changed column
+     * @param textValue entered cell text
+     */
     public void handleCellChanged(int row, int col, String textValue) {
         CellMoveResult result = cellMoveValidator.validateAndApply(gameManager, row, col, textValue);
 
@@ -101,12 +140,18 @@ public class SudokuGamePresenter {
         refreshView();
     }
 
+    /**
+     * Saves victory data and runs the victory action.
+     */
     private void showVictoryScreen() {
         String grade = victoryGrader.calculateGrade(gameManager.getHintsUsed());
         GameSessionResult.setCurrentResult(new VictoryResult(gameManager.getHintsUsed(), grade));
         victoryAction.run();
     }
 
+    /**
+     * Refreshes the Sudoku view.
+     */
     private void refreshView() {
         viewRefresher.refresh(
                 gameManager,
@@ -119,6 +164,9 @@ public class SudokuGamePresenter {
         );
     }
 
+    /**
+     * Recomputes invalid cell markers.
+     */
     private void updateInvalidCells() {
         invalidCells = new boolean[SIZE][SIZE];
 
@@ -129,6 +177,9 @@ public class SudokuGamePresenter {
         }
     }
 
+    /**
+     * Clears temporary feedback state.
+     */
     private void clearFeedback() {
         invalidCells = new boolean[SIZE][SIZE];
         hintCell = new int[0];

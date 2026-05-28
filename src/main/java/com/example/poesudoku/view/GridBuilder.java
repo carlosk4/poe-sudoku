@@ -19,12 +19,31 @@ import static com.example.poesudoku.model.SudokuConstants.BLOCK_ROWS;
 import static com.example.poesudoku.model.SudokuConstants.EMPTY_CELL;
 import static com.example.poesudoku.model.SudokuConstants.SIZE;
 
+/**
+ * Builds and styles the Sudoku grid.
+ *
+ * @author Joan Lorenzo H. (carlosk4)
+ * @author Abraham Y.
+ * @version 1.0
+ */
 public class GridBuilder {
 
     private static final Duration HINT_DURATION = Duration.millis(180);
 
     private final Hoverable hoverEffect = new CellHoverEffect();
 
+    /**
+     * Builds all grid cells.
+     *
+     * @param grid target grid
+     * @param generatedBoard current board
+     * @param fixedCells fixed cell markers
+     * @param invalidCells invalid cell markers
+     * @param hintCell hint cell data
+     * @param selectedCell selected cell data
+     * @param cellChangeHandler cell change callback
+     * @param cellSelectionHandler cell selection callback
+     */
     public void build(
             GridPane grid,
             int[][] generatedBoard,
@@ -74,6 +93,20 @@ public class GridBuilder {
         }
     }
 
+    /**
+     * Creates one grid text field.
+     *
+     * @param generatedBoard current board
+     * @param fixedCells fixed cell markers
+     * @param invalidCells invalid cell markers
+     * @param hintCell hint cell data
+     * @param selectedCell selected cell data
+     * @param row target row
+     * @param col target column
+     * @param cellChangeHandler cell change callback
+     * @param cellSelectionHandler cell selection callback
+     * @return created text field
+     */
     private TextField createCell(
             int[][] generatedBoard,
             boolean[][] fixedCells,
@@ -122,6 +155,12 @@ public class GridBuilder {
         return cell;
     }
 
+    /**
+     * Creates a hint label.
+     *
+     * @param hintValue hint value
+     * @return hint label
+     */
     private Label createHintLabel(int hintValue) {
         Label hintLabel = new Label(String.valueOf(hintValue));
         hintLabel.getStyleClass().add("hint-marker");
@@ -130,6 +169,11 @@ public class GridBuilder {
         return hintLabel;
     }
 
+    /**
+     * Animates a hint label.
+     *
+     * @param hintLabel hint label
+     */
     private void animateHint(Label hintLabel) {
         hintLabel.setOpacity(0);
         hintLabel.setScaleX(0.82);
@@ -146,6 +190,14 @@ public class GridBuilder {
         timeline.play();
     }
 
+    /**
+     * Configures editable cell behavior.
+     *
+     * @param cell target cell
+     * @param row target row
+     * @param col target column
+     * @param cellChangeHandler cell change callback
+     */
     private void configureEditableCell(TextField cell, int row, int col, CellChangeHandler cellChangeHandler) {
         cell.setStyle("-fx-display-caret: false;");
         final boolean[] restoringPreviousValue = {false};
@@ -175,10 +227,26 @@ public class GridBuilder {
         });
     }
 
+    /**
+     * Configures cell selection behavior.
+     *
+     * @param cell target cell
+     * @param row target row
+     * @param col target column
+     * @param cellSelectionHandler cell selection callback
+     */
     private void configureSelection(TextField cell, int row, int col, CellSelectionHandler cellSelectionHandler) {
         cell.setOnMouseClicked(event -> cellSelectionHandler.onCellSelected(row, col));
     }
 
+    /**
+     * Checks whether a cell is selected.
+     *
+     * @param selectedCell selected cell data
+     * @param row target row
+     * @param col target column
+     * @return true when the cell is selected
+     */
     private boolean isSelectedCell(int[] selectedCell, int row, int col) {
         return selectedCell != null
                 && selectedCell.length == 2
@@ -186,6 +254,14 @@ public class GridBuilder {
                 && selectedCell[1] == col;
     }
 
+    /**
+     * Checks whether a cell is related to the selected cell.
+     *
+     * @param selectedCell selected cell data
+     * @param row target row
+     * @param col target column
+     * @return true when the cell is related
+     */
     private boolean isRelatedToSelectedCell(int[] selectedCell, int row, int col) {
         if (selectedCell == null || selectedCell.length != 2) {
             return false;
@@ -199,6 +275,15 @@ public class GridBuilder {
                 || isSameBlock(selectedRow, selectedCol, row, col);
     }
 
+    /**
+     * Checks whether two cells are in the same block.
+     *
+     * @param selectedRow selected row
+     * @param selectedCol selected column
+     * @param row target row
+     * @param col target column
+     * @return true when cells share a block
+     */
     private boolean isSameBlock(int selectedRow, int selectedCol, int row, int col) {
         int selectedBlockRow = selectedRow / BLOCK_ROWS;
         int selectedBlockCol = selectedCol / BLOCK_COLUMNS;
@@ -208,6 +293,14 @@ public class GridBuilder {
         return selectedBlockRow == currentBlockRow && selectedBlockCol == currentBlockCol;
     }
 
+    /**
+     * Checks whether a cell is the hint cell.
+     *
+     * @param hintCell hint cell data
+     * @param row target row
+     * @param col target column
+     * @return true when the cell has a hint
+     */
     private boolean isHintCell(int[] hintCell, int row, int col) {
         return hintCell != null
                 && hintCell.length == 3
@@ -215,6 +308,14 @@ public class GridBuilder {
                 && hintCell[1] == col;
     }
 
+    /**
+     * Creates the wrapper for a cell.
+     *
+     * @param cell target cell
+     * @param row target row
+     * @param col target column
+     * @return cell wrapper
+     */
     private StackPane createWrapper(TextField cell, int row, int col) {
         StackPane wrapper = new StackPane(cell);
         wrapper.getStyleClass().add("cell-wrapper");

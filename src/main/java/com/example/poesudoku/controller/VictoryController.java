@@ -9,6 +9,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * Controls the victory result view.
+ *
+ * @author Joan Lorenzo H. (carlosk4)
+ * @author Abraham Y.
+ * @version 1.0
+ */
 public class VictoryController {
 
     @FXML private Label lblHintsUsed;
@@ -18,6 +25,9 @@ public class VictoryController {
 
     private final ButtonHoverable buttonHoverEffect = new ButtonHoverEffect();
 
+    /**
+     * Initializes victory data and button effects.
+     */
     @FXML
     public void initialize() {
         VictoryResult result = GameSessionResult.getCurrentResult();
@@ -29,12 +39,18 @@ public class VictoryController {
         buttonHoverEffect.applyButtonHoverEffect(btnNewGame);
     }
 
+    /**
+     * Opens the main menu view.
+     */
     @FXML
     protected void onMainMenu() {
         Stage stage = (Stage) btnMainMenu.getScene().getWindow();
         SceneNavigator.showMainMenu(stage);
     }
 
+    /**
+     * Starts a new game view.
+     */
     @FXML
     protected void onNewGame() {
         Stage stage = (Stage) btnNewGame.getScene().getWindow();

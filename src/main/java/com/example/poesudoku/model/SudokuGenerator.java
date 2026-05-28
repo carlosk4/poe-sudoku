@@ -9,6 +9,13 @@ import static com.example.poesudoku.model.SudokuConstants.BLOCK_ROWS;
 import static com.example.poesudoku.model.SudokuConstants.EMPTY_CELL;
 import static com.example.poesudoku.model.SudokuConstants.SIZE;
 
+/**
+ * Generates solved Sudoku boards and fixed cell positions.
+ *
+ * @author Joan Lorenzo H. (carlosk4)
+ * @author Abraham Y.
+ * @version 1.0
+ */
 public class SudokuGenerator implements SudokuGeneratorInterface {
 
     private static final int FIXED_CELLS_PER_BLOCK = 2;
@@ -16,12 +23,18 @@ public class SudokuGenerator implements SudokuGeneratorInterface {
     private final int[][] generatedBoard = new int[SIZE][SIZE];
     private final boolean[][] fixedCells = new boolean[SIZE][SIZE];
 
+    /**
+     * Generates a solved Sudoku board.
+     */
     @Override
     public void generate() {
         clearBoard();
         solve(0, 0);
     }
 
+    /**
+     * Marks fixed cells in each block.
+     */
     @Override
     public void placeFixedNumbers() {
         for (int blockRow = 0; blockRow < SIZE / BLOCK_ROWS; blockRow++) {
@@ -31,16 +44,29 @@ public class SudokuGenerator implements SudokuGeneratorInterface {
         }
     }
 
+    /**
+     * Returns the generated board.
+     *
+     * @return generated board
+     */
     @Override
     public int[][] getGeneratedBoard() {
         return copyBoard(generatedBoard);
     }
 
+    /**
+     * Returns fixed cell markers.
+     *
+     * @return fixed cell markers
+     */
     @Override
     public boolean[][] getFixedCells() {
         return copyFixedCells();
     }
 
+    /**
+     * Clears generated values and fixed markers.
+     */
     private void clearBoard() {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
@@ -50,6 +76,13 @@ public class SudokuGenerator implements SudokuGeneratorInterface {
         }
     }
 
+    /**
+     * Solves the board from a cell position.
+     *
+     * @param row current row
+     * @param col current column
+     * @return true when a solution is found
+     */
     private boolean solve(int row, int col) {
         if (row == SIZE) {
             return true;
@@ -73,6 +106,14 @@ public class SudokuGenerator implements SudokuGeneratorInterface {
         return false;
     }
 
+    /**
+     * Checks whether a value can be placed at a cell.
+     *
+     * @param row target row
+     * @param col target column
+     * @param value target value
+     * @return true when placement is valid
+     */
     private boolean isValidPlacement(int row, int col, int value) {
         for (int i = 0; i < SIZE; i++) {
             if (generatedBoard[row][i] == value) {
@@ -98,6 +139,12 @@ public class SudokuGenerator implements SudokuGeneratorInterface {
         return true;
     }
 
+    /**
+     * Marks fixed cells inside one block.
+     *
+     * @param startRow block start row
+     * @param startCol block start column
+     */
     private void placeFixedInBlock(int startRow, int startCol) {
         List<int[]> cells = new ArrayList<>();
 
@@ -116,6 +163,11 @@ public class SudokuGenerator implements SudokuGeneratorInterface {
         }
     }
 
+    /**
+     * Creates shuffled values from one to the board size.
+     *
+     * @return shuffled numbers
+     */
     private List<Integer> getShuffledNumbers() {
         List<Integer> numbers = new ArrayList<>(SIZE);
 
@@ -127,6 +179,12 @@ public class SudokuGenerator implements SudokuGeneratorInterface {
         return numbers;
     }
 
+    /**
+     * Copies a board matrix.
+     *
+     * @param original source board
+     * @return copied board
+     */
     private int[][] copyBoard(int[][] original) {
         int[][] copy = new int[SIZE][SIZE];
 
@@ -137,6 +195,11 @@ public class SudokuGenerator implements SudokuGeneratorInterface {
         return copy;
     }
 
+    /**
+     * Copies fixed cell markers.
+     *
+     * @return copied fixed cell markers
+     */
     private boolean[][] copyFixedCells() {
         boolean[][] copy = new boolean[SIZE][SIZE];
 

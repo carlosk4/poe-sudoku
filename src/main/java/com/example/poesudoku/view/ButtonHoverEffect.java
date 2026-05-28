@@ -12,6 +12,13 @@ import javafx.util.Duration;
 
 import java.util.Locale;
 
+/**
+ * Applies animated hover effects to JavaFX buttons.
+ *
+ * @author Joan Lorenzo H. (carlosk4)
+ * @author Abraham Y.
+ * @version 1.0
+ */
 public class ButtonHoverEffect implements ButtonHoverable {
 
     private static final Duration HOVER_DURATION = Duration.millis(130);
@@ -22,6 +29,11 @@ public class ButtonHoverEffect implements ButtonHoverable {
     private static final Color HOVER_TEXT = NORMAL_BACKGROUND;
     private static final Color HOVER_BORDER = NORMAL_BACKGROUND;
 
+    /**
+     * Applies hover effects to a button.
+     *
+     * @param button target button
+     */
     @Override
     public void applyButtonHoverEffect(Button button) {
         ObjectProperty<Color> background = new SimpleObjectProperty<>(NORMAL_BACKGROUND);
@@ -39,6 +51,19 @@ public class ButtonHoverEffect implements ButtonHoverable {
         button.setOnMouseReleased(e -> animate(button, background, text, border, HOVER_BACKGROUND, HOVER_TEXT, HOVER_BORDER, 1.02, -1));
     }
 
+    /**
+     * Animates button colors and transforms.
+     *
+     * @param button target button
+     * @param background background color property
+     * @param text text color property
+     * @param border border color property
+     * @param targetBackground target background color
+     * @param targetText target text color
+     * @param targetBorder target border color
+     * @param scale target scale
+     * @param translateY target vertical translation
+     */
     private void animate(
             Button button,
             ObjectProperty<Color> background,
@@ -64,6 +89,14 @@ public class ButtonHoverEffect implements ButtonHoverable {
         timeline.play();
     }
 
+    /**
+     * Applies CSS colors to a button.
+     *
+     * @param button target button
+     * @param background background color
+     * @param text text color
+     * @param border border color
+     */
     private void applyColors(Button button, Color background, Color text, Color border) {
         button.setStyle(String.format(
                 Locale.US,
@@ -74,6 +107,12 @@ public class ButtonHoverEffect implements ButtonHoverable {
         ));
     }
 
+    /**
+     * Converts a JavaFX color to CSS rgba.
+     *
+     * @param color source color
+     * @return css rgba color
+     */
     private String toCssColor(Color color) {
         return String.format(
                 Locale.US,
