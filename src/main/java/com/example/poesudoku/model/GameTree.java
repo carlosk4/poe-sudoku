@@ -6,10 +6,10 @@ import static com.example.poesudoku.model.SudokuConstants.SIZE;
 
 public class GameTree {
 
-    private GameStateNode root;
     private GameStateNode current;
 
     public void init(int[][] initialBoard) {
+        GameStateNode root;
         root = new GameStateNode(initialBoard);
         current = root;
     }
@@ -71,9 +71,5 @@ public class GameTree {
         }
 
         return current.getBoardState();
-    }
-
-    public boolean isAtRoot() {
-        return current == root;
     }
 }

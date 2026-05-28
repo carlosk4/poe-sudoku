@@ -1,17 +1,20 @@
 package com.example.poesudoku.controller;
 
+import com.example.poesudoku.model.CellMoveResult;
+import com.example.poesudoku.model.CellMoveValidator;
+import com.example.poesudoku.model.CellMoveValidatorInterface;
 import com.example.poesudoku.model.GameManagerInterface;
 import com.example.poesudoku.model.GameSessionResult;
 import com.example.poesudoku.model.VictoryGrader;
 import com.example.poesudoku.model.VictoryResult;
 
-import static com.example.poesudoku.model.SudokuConstants.EMPTY_CELL;
 import static com.example.poesudoku.model.SudokuConstants.SIZE;
 
 public class SudokuGamePresenter {
 
     private final GameManagerInterface gameManager;
     private final SudokuViewRefresher viewRefresher;
+    private final CellMoveValidatorInterface cellMoveValidator = new CellMoveValidator();
     private final VictoryGrader victoryGrader = new VictoryGrader();
     private final Runnable victoryAction;
 
@@ -80,44 +83,22 @@ public class SudokuGamePresenter {
     }
 
     public void handleCellChanged(int row, int col, String textValue) {
-        if (!isValidCellText(textValue)) {
+        CellMoveResult result = cellMoveValidator.validateAndApply(gameManager, row, col, textValue);
+
+        if (result.shouldClearHint()) {
             hintCell = new int[0];
-            message = "Símbolo o número inválido.";
-            refreshView();
-            return;
         }
 
-        int value = parseCellValue(textValue);
-
-        boolean changed = gameManager.setCellValue(row, col, value);
-
-        if (!changed) {
-            message = "No puedes modificar esta celda.";
-            refreshView();
-            return;
+        if (result.shouldUpdateInvalidCells()) {
+            updateInvalidCells();
         }
 
-        hintCell = new int[0];
-        updateInvalidCells();
-
-        if (value == EMPTY_CELL) {
-            message = "Celda limpiada.";
-            refreshView();
-            return;
-        }
-
-        if (!gameManager.isCellValid(row, col)) {
-            message = "Movimiento inválido: el número se repite en fila, columna o bloque.";
-            refreshView();
-            return;
-        }
-
-        if (gameManager.isSolved()) {
+        if (result.shouldShowVictory()) {
             showVictoryScreen();
             return;
         }
 
-        message = "Movimiento válido.";
+        message = result.message();
         refreshView();
     }
 
@@ -144,7 +125,7 @@ public class SudokuGamePresenter {
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
-                invalidCells[row][col] = !gameManager.isCellValid(row, col);
+                invalidCells[row][col] = gameManager.isCellValid(row, col);
             }
         }
     }
@@ -154,17 +135,5 @@ public class SudokuGamePresenter {
         hintCell = new int[0];
         selectedCell = new int[0];
         message = "";
-    }
-
-    private int parseCellValue(String textValue) {
-        if (textValue == null || textValue.isBlank()) {
-            return EMPTY_CELL;
-        }
-
-        return Integer.parseInt(textValue);
-    }
-
-    private boolean isValidCellText(String textValue) {
-        return textValue == null || textValue.isEmpty() || textValue.matches("[1-6]");
     }
 }

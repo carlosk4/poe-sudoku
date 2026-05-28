@@ -52,22 +52,6 @@ public class GameManager implements GameManagerInterface {
     }
 
     @Override
-    public void redo(int branchIndex) {
-        int[][] nextBoard = gameTree.redo(branchIndex);
-        loadBoard(nextBoard);
-    }
-
-    @Override
-    public boolean canRedo() {
-        return gameTree.canRedo();
-    }
-
-    @Override
-    public int getAvailableBranchesCount() {
-        return gameTree.getCurrentBranches().size();
-    }
-
-    @Override
     public boolean setCellValue(int row, int col, int value) {
         if (!isInsideBoard(row, col) || isFixedCell(row, col) || !isValidCellValue(value)) {
             return false;
@@ -93,16 +77,16 @@ public class GameManager implements GameManagerInterface {
     @Override
     public boolean isCellValid(int row, int col) {
         if (!isInsideBoard(row, col)) {
-            return false;
+            return true;
         }
 
         int value = board.getCell(row, col);
 
         if (value == EMPTY_CELL) {
-            return true;
+            return false;
         }
 
-        return board.isValid(row, col, value);
+        return !board.isValid(row, col, value);
     }
 
     @Override
@@ -133,24 +117,6 @@ public class GameManager implements GameManagerInterface {
     @Override
     public int getHintsUsed() {
         return hintsUsed;
-    }
-
-    @Override
-    public boolean isValidMove(int row, int col, int value) {
-        if (!isInsideBoard(row, col) || !isValidCellValue(value)) {
-            return false;
-        }
-
-        if (value == EMPTY_CELL) {
-            return true;
-        }
-
-        int previousValue = board.getCell(row, col);
-        board.setCell(row, col, value);
-        boolean valid = board.isValid(row, col, value);
-        board.setCell(row, col, previousValue);
-
-        return valid;
     }
 
     private void loadBoard(int[][] boardState) {

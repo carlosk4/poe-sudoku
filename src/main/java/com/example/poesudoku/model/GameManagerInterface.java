@@ -6,10 +6,6 @@ public interface GameManagerInterface {
     void undo();
     boolean canUndo();
 
-    void redo(int branchIndex);
-    boolean canRedo();
-    int getAvailableBranchesCount();
-
     boolean setCellValue(int row, int col, int value);
     boolean isFixedCell(int row, int col);
     boolean isCellValid(int row, int col);
@@ -21,5 +17,4 @@ public interface GameManagerInterface {
     int[] getHint();
     void registerHintUsed();
     int getHintsUsed();
-    boolean isValidMove(int row, int col, int value);
 }

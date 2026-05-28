@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -35,7 +36,7 @@ public class GridBuilder {
             CellSelectionHandler cellSelectionHandler
     ) {
         grid.getChildren().clear();
-        TextField focusedCell = null;
+        TextField cellToFocus = null;
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
@@ -60,7 +61,7 @@ public class GridBuilder {
                 }
 
                 if (isSelectedCell(selectedCell, row, col)) {
-                    focusedCell = cell;
+                    cellToFocus = cell;
                 }
 
                 hoverEffect.applyHoverEffect(wrapper);
@@ -68,8 +69,7 @@ public class GridBuilder {
             }
         }
 
-        if (focusedCell != null) {
-            TextField cellToFocus = focusedCell;
+        if (cellToFocus != null) {
             Platform.runLater(cellToFocus::requestFocus);
         }
     }
@@ -150,7 +150,7 @@ public class GridBuilder {
         cell.setStyle("-fx-display-caret: false;");
         final boolean[] restoringPreviousValue = {false};
 
-        cell.setOnMouseDragged(event -> event.consume());
+        cell.setOnMouseDragged(Event::consume);
 
         cell.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.DELETE) {
