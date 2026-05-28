@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.example.poesudoku","l":"com.example.poesudoku"},{"m":"com.example.poesudoku","l":"com.example.poesudoku.controller"},{"m":"com.example.poesudoku","l":"com.example.poesudoku.model"},{"m":"com.example.poesudoku","l":"com.example.poesudoku.view"}];updateSearchResults();

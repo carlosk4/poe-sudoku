@@ -1,0 +1,5 @@
+module:com.example.poesudoku
+com.example.poesudoku
+com.example.poesudoku.controller
+com.example.poesudoku.model
+com.example.poesudoku.view
