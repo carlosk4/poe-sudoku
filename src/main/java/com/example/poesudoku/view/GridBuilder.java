@@ -148,6 +148,7 @@ public class GridBuilder {
 
     private void configureEditableCell(TextField cell, int row, int col, CellChangeHandler cellChangeHandler) {
         cell.setStyle("-fx-display-caret: false;");
+        final boolean[] restoringPreviousValue = {false};
 
         cell.setOnMouseDragged(event -> event.consume());
 
@@ -158,8 +159,15 @@ public class GridBuilder {
         });
 
         cell.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (restoringPreviousValue[0]) {
+                return;
+            }
+
             if (!newValue.matches("[1-6]?")) {
+                restoringPreviousValue[0] = true;
                 cell.setText(oldValue);
+                restoringPreviousValue[0] = false;
+                cellChangeHandler.onCellChanged(row, col, newValue);
                 return;
             }
 

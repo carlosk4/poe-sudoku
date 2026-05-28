@@ -80,6 +80,13 @@ public class SudokuGamePresenter {
     }
 
     public void handleCellChanged(int row, int col, String textValue) {
+        if (!isValidCellText(textValue)) {
+            hintCell = new int[0];
+            message = "Símbolo o número inválido.";
+            refreshView();
+            return;
+        }
+
         int value = parseCellValue(textValue);
 
         boolean changed = gameManager.setCellValue(row, col, value);
@@ -155,5 +162,9 @@ public class SudokuGamePresenter {
         }
 
         return Integer.parseInt(textValue);
+    }
+
+    private boolean isValidCellText(String textValue) {
+        return textValue == null || textValue.isEmpty() || textValue.matches("[1-6]");
     }
 }
